@@ -1,7 +1,7 @@
 package ders1;
 
 
-public class overloading {
+public class Method_Overloading {
     
     public static void say_hi(){
         System.out.println("Hello !");
