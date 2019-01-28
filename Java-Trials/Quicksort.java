@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class Ders1 {
     
-    public static void quicksort(int dizi[],int p,int r){
+    public static void Quicksort(int dizi[],int p,int r){
         int q;
         if(p<r){            
             q=partition(dizi,p,r);
