@@ -4,7 +4,7 @@ package ders1;
 import java.util.Scanner;
 
 
-public class Matrix {
+public class Multidimensional_Arrays {
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
         
