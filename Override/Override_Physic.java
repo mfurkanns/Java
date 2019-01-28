@@ -12,9 +12,7 @@ public class Physic extends Math {
     }
     @Override
     public void showInfo(){        
-        System.out.println("midterm-1 = "+getMidterm1());
-        System.out.println("midterm-2 = "+getMidterm2());
-        System.out.println("final = "+getFinal());
+         super.showInfo();
         System.out.println("lab = "+this.lab);
     }
     
