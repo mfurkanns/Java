@@ -22,15 +22,5 @@ public class Example {
 		}
 		
 		System.out.println(arr[rand.nextInt(num)]);
-		
-		
-		
-		
-		
-		
 	}
-	
-	
-	
-
 }
