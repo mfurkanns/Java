@@ -10,7 +10,7 @@ public class AutoPark {
 	private int capacity;
 	private int currentCapacity;
 	private ArrayList<SubscribedVehicle> subsVehicles;
-	private Vector<Vehicle> vehicles;    				// otoparktaki park halindeki araçları tutan vector dizisi
+	private Vector<Vehicle> vehicles;    				// otoparktaki park halindeki araÃ§larÃ½ tutan vector dizisi
 	private ArrayList<ParkRecord> parkRecords;
 	
 	public AutoPark(double hourlyFee,int capacity) {
@@ -81,8 +81,8 @@ public class AutoPark {
 	
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
-	public SubscribedVehicle searchVehicle(String plate) {	// üye araçların içinden verilen plakadaki arabayı bulan metoddur.
-															// eğer bulursa aracın kendisini döndürür.Bulmazsa null döndürür.
+	public SubscribedVehicle searchVehicle(String plate) {	// Ã¼ye araÃ§larÃ½n iÃ§inden verilen plakadaki arabayÃ½ bulan metoddur.
+															// eÃ°er bulursa aracÃ½n kendisini dÃ¶ndÃ¼rÃ¼r.Bulmazsa null dÃ¶ndÃ¼rÃ¼r.
 		for(SubscribedVehicle a:subsVehicles) {
 			if(a.getPlate()==plate)
 				return a;
@@ -90,11 +90,11 @@ public class AutoPark {
 		return null;		
 	}
 	
-	public boolean isParked(String plate) {	// plakası verilen bir arabanın park halinde olup olmadığını bulan metoddur.
-											// eger arac park halindeyse true döndürür.değilse false döndürür.
+	public boolean isParked(String plate) {	// plakasÃ½ verilen bir arabanÃ½n park halinde olup olmadÃ½Ã°Ã½nÃ½ bulan metoddur.
+											// eger arac park halindeyse true dÃ¶ndÃ¼rÃ¼r.deÃ°ilse false dÃ¶ndÃ¼rÃ¼r.
 		for( Vehicle a:vehicles) {
 			if(a.getPlate()==plate) {
-				System.out.println("Araç zaten park edilmiş !\n");
+				System.out.println("AraÃ§ zaten park edilmiÃ¾ !\n");
 				return true;
 			}
 				
@@ -102,133 +102,146 @@ public class AutoPark {
 		return false;
 	}
 	
-	public void enlargeVehicleArray(int a) {	// otoparkın kapasitesini arttırır.
-		System.out.println("Otopark kapasitesi "+a+" arttırılmıştır !");
+	public void enlargeVehicleArray(int a) {	// otoparkÃ½n kapasitesini arttÃ½rÃ½r.
+		System.out.println("Otopark kapasitesi "+a+" arttÃ½rÃ½lmÃ½Ã¾tÃ½r !");
 		capacity+=a;		
 	}
 	
-	public boolean addVehicle(SubscribedVehicle a) {	// otoparka yeni üye araç ekler.
-		for(SubscribedVehicle b:subsVehicles) {			// eğer araba zaten üyeyse false döndürür,değilse true.
+	public boolean addVehicle(SubscribedVehicle a) {	// otoparka yeni Ã¼ye araÃ§ ekler.
+		for(SubscribedVehicle b:subsVehicles) {			// eÃ°er araba zaten Ã¼yeyse false dÃ¶ndÃ¼rÃ¼r,deÃ°ilse true.
 			if(b.getPlate()==a.getPlate()) {
-				System.out.println("Araç zaten abone !\n");
+				System.out.println("AraÃ§ zaten abone !\n");
 				return false;				
 			}
 		}
-		System.out.println("Yeni üyelik oluşturuldu."+a.getPlate()+" plakalı araç üyeliğe alındı.\n");
+		System.out.println("Yeni Ã¼yelik oluÃ¾turuldu."+a.getPlate()+" plakalÃ½ araÃ§ Ã¼yeliÃ°e alÃ½ndÃ½.\n");
 		subsVehicles.add(a);
 		return true;
 	}
 	
-	public boolean vehicleEnters(String plate,Time enter,boolean isOfficial) { //plakası verilen arabayı otoparka araç girişi yapar
+	public boolean vehicleEnters(String plate,Time enter,boolean isOfficial) { //plakasÃ½ verilen arabayÃ½ otoparka araÃ§ giriÃ¾i yapar
 		
-		if(currentCapacity>=capacity) {	// eğer otopark doluysa false döndürür.
-			System.out.println("Otoparkın kapasite dolu.Aracınız park edilemedi !\n");
+		if(currentCapacity>=capacity) {	// eÃ°er otopark doluysa false dÃ¶ndÃ¼rÃ¼r.
+			System.out.println("OtoparkÃ½n kapasite dolu.AracÃ½nÃ½z park edilemedi !\n");
 			return false;
 		}
 		
-		if(isParked(plate)) {	// araç zaten park edilmişse false döndürür.
-			System.out.println("Araç zaten park edilmiş !\n");
+		if(isParked(plate)) {	// araÃ§ zaten park edilmiÃ¾se false dÃ¶ndÃ¼rÃ¼r.
+			System.out.println("AraÃ§ zaten park edilmiÃ¾ !\n");
 			return false;
 		}
 			
 		
 		
-		if(searchVehicle(plate)!=null) { // giriş yapan araç aboneyse park record oluşturulur.
+		if(searchVehicle(plate)!=null) { // giriÃ¾ yapan araÃ§ aboneyse park record oluÃ¾turulur.
 			ParkRecord pRecord = new ParkRecord(enter, searchVehicle(plate));
 			pRecord.setVehicle(searchVehicle(plate));
 			parkRecords.add(pRecord);
 			vehicles.add(searchVehicle(plate));
 			currentCapacity++;
-			System.out.println("Abone araç"+" ("+plate+") "+"park edildi !\n");
+			System.out.println("Abone araÃ§"+" ("+plate+") "+"park edildi !\n");
 			return true;
 		}
 		else {
 			
-			if(isOfficial) { // giriş yapan araç resmi araç ise park record oluşturulur.
+			if(isOfficial) { // giriÃ¾ yapan araÃ§ resmi araÃ§ ise park record oluÃ¾turulur.
 				Vehicle vhcl = new OfficialVehicle(plate);
 				ParkRecord pRecord = new ParkRecord(enter, vhcl);
 				pRecord.setVehicle(vhcl);
 				parkRecords.add(pRecord);
 				vehicles.add(vhcl);
 				currentCapacity++;
-				System.out.println("Resmi araç"+" ("+plate+") "+"park edildi !\n");
+				System.out.println("Resmi araÃ§"+" ("+plate+") "+"park edildi !\n");
 				return true;
 			}
-			else { // giriş yapan araç normal ise park record oluşturulur.
+			else { // giriÃ¾ yapan araÃ§ normal ise park record oluÃ¾turulur.
 				Vehicle vhcl = new RegularVehicle(plate);
 				ParkRecord pRecord = new ParkRecord(enter, vhcl);
 				pRecord.setVehicle(vhcl);
 				parkRecords.add(pRecord);
 				vehicles.add(vhcl);
 				currentCapacity++;
-				System.out.println("Normal araç"+" ("+plate+") "+"park edildi !\n");
+				System.out.println("Normal araÃ§"+" ("+plate+") "+"park edildi !\n");
 				return true;
 			}
 		}
 	}
 	
-	public boolean vehicleExits(String plate,Time exit) { // plakası verilen araç otoparktan çıkarılır.
+	public boolean vehicleExits(String plate,Time exit) { // plakasÃ½ verilen araÃ§ otoparktan Ã§Ã½karÃ½lÃ½r.
 		
-		if(!isParked(plate)) { // araba eğer otoparkta değilse false döndürülür.
+		if(!isParked(plate)) { // araba eÃ°er otoparkta deÃ°ilse false dÃ¶ndÃ¼rÃ¼lÃ¼r.
 			System.out.println("Araba bulunamadi !\n");
 			return false;
 		}
 		
-		for(ParkRecord a:parkRecords) { // park edilen araçlar arasından verilen plakadaki araç aranır.
+		for(ParkRecord a:parkRecords) { // park edilen araÃ§lar arasÃ½ndan verilen plakadaki araÃ§ aranÃ½r.
 			if(a.getVehicle().getPlate()==plate) {
-				if(searchVehicle(a.getVehicle().getPlate())!=null) { // araba eğer aboneyse ücret ödenmeden çıkış yapılır.
-					if(a.getVehicle().getSubscription().isValid()) { // arabanın abonelik süresi geçmemişse
-						a.setExitTime(exit); // çıkış süresi park recorda yazılır.
-						currentCapacity--; 	 // otoparktaki araç sayısı 1 azaltılır.
-						vehicles.remove(a.getVehicle()); // araç diziden çıkartılır.
-						System.out.println("Abone araç"+" ("+plate+") "+"çıkış yaptı !");
+				if(searchVehicle(a.getVehicle().getPlate())!=null) { // araba eÃ°er aboneyse Ã¼cret Ã¶denmeden Ã§Ã½kÃ½Ã¾ yapÃ½lÃ½r.
+					if(a.getVehicle().getSubscription().isValid()) { // arabanÃ½n abonelik sÃ¼resi geÃ§memiÃ¾se
+						a.setExitTime(exit); // Ã§Ã½kÃ½Ã¾ sÃ¼resi park recorda yazÃ½lÃ½r.
+						currentCapacity--; 	 // otoparktaki araÃ§ sayÃ½sÃ½ 1 azaltÃ½lÃ½r.
+						vehicles.remove(a.getVehicle()); // araÃ§ diziden Ã§Ã½kartÃ½lÃ½r.
+						System.out.println("Abone araÃ§"+" ("+plate+") "+"Ã§Ã½kÃ½Ã¾ yaptÃ½ !");
 						return true;
 					}
-					else { // eğer abonelik süresi dolduysa ücret hesaplanır.
+					else { // eÃ°er abonelik sÃ¼resi dolduysa Ã¼cret hesaplanÃ½r.
 						double hesap;
 						a.setExitTime(exit);
-						hesap=a.getParkingDuration()*hourlyFee; // ücret hesaplanır.
-						incomeDaily+=hesap; // günlük hasılata eklenir.
+						hesap=a.getParkingDuration()*hourlyFee; // Ã¼cret hesaplanÃ½r.
+						incomeDaily+=hesap; // gÃ¼nlÃ¼k hasÃ½lata eklenir.
 						subsVehicles.remove(a.getVehicle());
 						currentCapacity--;
 						vehicles.remove(a.getVehicle());
 						subsVehicles.remove(a); //
-						System.out.println("Abonelik süresi dolan araç çıkış yaptı.Park bedeli = "+hesap+"\n");
+						System.out.println("Abonelik sÃ¼resi dolan araÃ§ Ã§Ã½kÃ½Ã¾ yaptÃ½.Park bedeli = "+hesap+"\n");
 						return true;
 					}
 					
 				}
-				else { // çıkış yapan araç eğer normal ise ücret hesaplanır.
-					double hesap;
-					a.setExitTime(exit);
-					hesap=a.getParkingDuration()*hourlyFee; // ücret hesaplanır.
-					incomeDaily+=hesap;  // günlük hasılata eklenir.
-					currentCapacity--;
-					vehicles.remove(a.getVehicle());
-					System.out.println("Normal araç"+" ("+plate+") "+"çıkış yaptı ! Park bedeli = "+hesap);
-					return true;	// işlem tamamlanır true döndürülür.			
+				else { // cikis yapan araÃ§ eÃ°er normal ise Ã¼cret hesaplanÃ½r.
+					
+					if(isOfficial) { // giriÅŸ yapan araÃ§ resmi araÃ§ ise park record oluÅŸturulur.
+						Vehicle vhcl = new OfficialVehicle(plate);
+						ParkRecord pRecord = new ParkRecord(enter, vhcl);
+						pRecord.setVehicle(vhcl);
+						parkRecords.add(pRecord);
+						vehicles.add(vhcl);
+						currentCapacity++;
+						System.out.println("Resmi araÃ§"+" ("+plate+") "+"park edildi !\n");
+						return true;
+					}		
+					else { // giriÅŸ yapan araÃ§ normal ise park record oluÅŸturulur.
+						Vehicle vhcl = new RegularVehicle(plate);
+						ParkRecord pRecord = new ParkRecord(enter, vhcl);
+						pRecord.setVehicle(vhcl);
+						parkRecords.add(pRecord);
+						vehicles.add(vhcl);
+						currentCapacity++;
+						System.out.println("Normal araÃ§"+" ("+plate+") "+"park edildi !\n");
+						return true;
+					}			
 				}
 					
 			}
 		}
 		
-		for(Vehicle a:vehicles) { // aracın resmi olup olmadığına bakılır.
-			if(a.isSpecial()) { // araç resmi ise ücret hesaplanmaz.
+		for(Vehicle a:vehicles) { // aracÃ½n resmi olup olmadÃ½Ã°Ã½na bakÃ½lÃ½r.
+			if(a.isSpecial()) { // araÃ§ resmi ise Ã¼cret hesaplanmaz.
 				currentCapacity--;
 				vehicles.remove(a);
-				System.out.println("Resmi araç"+" ("+plate+") "+"çıkış yaptı !");
-				return true;   // işlem tamamlanır true döndürülür.
+				System.out.println("Resmi araÃ§"+" ("+plate+") "+"Ã§Ã½kÃ½Ã¾ yaptÃ½ !");
+				return true;   // iÃ¾lem tamamlanÃ½r true dÃ¶ndÃ¼rÃ¼lÃ¼r.
 			}
 		}
 		
 		System.out.println("Araba bulunamadi !\n");
-		return false;  // plakası verilen araç yoksa false döndürülür.
+		return false;  // plakasÃ½ verilen araÃ§ yoksa false dÃ¶ndÃ¼rÃ¼lÃ¼r.
 		
 	}
 	
-	public String toString() { // park eden arabalar ve kazanç yazdırılır.
+	public String toString() { // park eden arabalar ve kazanÃ§ yazdÃ½rÃ½lÃ½r.
 		int i=1;
-		System.out.println("Bugün park eden arabalar:");
+		System.out.println("BugÃ¼n park eden arabalar:");
 		for(ParkRecord a:parkRecords) {
 			System.out.println(i+")"+a.getVehicle().getPlate());	
 			i++;
@@ -236,7 +249,7 @@ public class AutoPark {
 		
 		
 		
-		return "Mevcut kazanç = "+incomeDaily+"\n";
+		return "Mevcut kazanÃ§ = "+incomeDaily+"\n";
 		
 	}
 	
